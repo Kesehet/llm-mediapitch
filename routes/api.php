@@ -23,7 +23,7 @@ Route::post('llm', function (Request $request, NgrokService $ngrokService) {
         ]);
         
 
-        return $request->input('query')."\n - ".$response->body();
+        return $response->body();
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 400);
     }

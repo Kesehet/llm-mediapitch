@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class NgrokService
 {
@@ -14,13 +15,13 @@ class NgrokService
             'Ngrok-Version' => '2',
         ])->get('https://api.ngrok.com/tunnels');
 
-        if ($response->successful()) {
-            $data = $response->json();
-            if (isset($data['tunnels'])) {
-                return collect($data['tunnels'])->pluck('public_url');
-            }
+        if ($response->failed()) {
+            Log::error("Error fetching tunnels: " . $response->body());
+            throw new \Exception("Error fetching tunnels.");
         }
 
-        throw new \Exception("No tunnels found or error in fetching tunnels.");
+        $data = $response->json();
+
+        return collect($data['tunnels'] ?? [])->pluck('public_url');
     }
 }

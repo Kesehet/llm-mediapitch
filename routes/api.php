@@ -8,6 +8,7 @@ Route::get('tunnels', [Controller::class, 'index'])->name('tunnels');
 
 Route::post('llm', [Controller::class, 'llm'] )->name('llm');
 
+Route::post('whisper', [Controller::class, 'whisper'])->name('whisper');
 
 
 

@@ -46,8 +46,8 @@ class Controller extends BaseController
                 ],
             ]);
 
-            $task_id = json_decode($response->getBody()->getContents(), true)['task_id'];
-            return $this->getTasks($task_id);
+            
+            return $response->getBody()->getContents();
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }

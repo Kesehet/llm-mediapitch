@@ -85,7 +85,7 @@ class Controller extends BaseController
 
         $client = new Client();
 
-        $response = $client->get($firstUrl . '/tasks/' . $task_id);
+        $response = $client->post($firstUrl . '/tasks/' . $task_id,[]);
         if ($response->getStatusCode() == 200) {
             return $response->getBody()->getContents();
         }

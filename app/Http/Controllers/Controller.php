@@ -32,25 +32,14 @@ class Controller extends BaseController
 
     public function llm(Request $request)
     {
-        try {
-            $urls = $this->index();
-            $firstUrl = $urls->first();
-            if (!$firstUrl) {
-                return response()->json(['error' => 'No tunnels found or error in fetching tunnels.'], 400);
-            }
-
-            $client = new Client(); // Create a Guzzle HTTP client instance
-            $response = $client->post($firstUrl . "/llm", [
-                'form_params' => [
-                    'query' => $request->input('query'),
-                ],
-            ]);
-
-            $task_id = json_decode($response->getBody()->getContents(), true)['task_id'];
-            return $this->getTasks($task_id);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
+        $task = Task::create([
+            'payload' => ["query"=>$request->input('query')],
+            'task_type' => 'llm',
+            'status' => 'pending',
+            'result' => null
+        ]);
+        
+        return response()->json(["id"=>$task->uuid]);
     }
 
     public function whisper(Request $request)

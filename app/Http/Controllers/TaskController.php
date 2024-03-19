@@ -11,7 +11,11 @@ class TaskController extends Controller
     public function getPendingTasks($type)
     {
         $tasks = Task::where('status', 'pending')->where('task_type', $type)->get();
-        return response()->json($tasks);
+        // get first task 
+        $task = $tasks->first();
+        // update the first task and set status to processing
+        $task->update(['status' => 'processing']);
+        return response()->json($task);
     }
 
     public function updateTask(Request $request, $uuid)

@@ -38,6 +38,7 @@ class Controller extends BaseController
         $task = Task::create([
             'payload' => ["query"=>$request->input('query')],
             'task_type' => 'llm',
+            'description' => "Requested task to run LLM query",
             'status' => 'pending',
             'result' => null
         ]);

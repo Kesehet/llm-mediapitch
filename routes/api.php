@@ -19,4 +19,6 @@ Route::post('/tasks', [TaskController::class, 'store']);
 Route::get('/tasks/pending', [TaskController::class, 'getPendingTasks']);
 Route::patch('/tasks/{task}', [TaskController::class, 'updateTask']);
 
+Route::get('/tasks/response', [TaskController::class, 'getResponse']);
+
 

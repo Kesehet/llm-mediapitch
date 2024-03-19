@@ -26,6 +26,10 @@ class TaskController extends Controller
         return response()->json($task);
     }
 
+    public function getResponse($uuid){
+        $task = Task::where('uuid', $uuid)->where('status', 'completed')->firstOrFail();
+        return response()->json($task->result);
+    }
 
     public function handleStuckTasks(){
         Task::where('status', 'processing')

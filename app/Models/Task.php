@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str; // Include this at the top
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class Task extends Model
 {
@@ -26,7 +27,15 @@ class Task extends Model
             // Check if task already has a UUID (in case it's manually set)
             if (empty($task->uuid)) {
                 $task->uuid = (string) Str::uuid();
+
             }
+
+            if (!empty($task->task_type) && !empty($task->payload)) {
+                $hashInput = $task->task_type . serialize($task->payload);
+                $task->description = Hash::make($hashInput);
+            }
+
+
         });
     }
 }

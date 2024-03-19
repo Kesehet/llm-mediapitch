@@ -13,7 +13,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedForCredentialsHttpException;
 
-// add request 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,18 +34,37 @@ class Controller extends BaseController
         return (new NgrokService())->getTunnels();
     }
 
+
+    
     public function llm(Request $request)
     {
-        $task = Task::create([
-            'payload' => ["query"=>$request->input('query')],
-            'task_type' => 'llm',
-            'description' => "Requested task to run LLM query",
-            'status' => 'pending',
-            'result' => null
-        ]);
-        
-        return response()->json(["id"=>$task->uuid]);
+        // Pre-calculate the hash
+        $payload = ["query" => $request->input('query')];
+        $taskType = 'llm';
+        $hashInput = $taskType . serialize($payload);
+        $descriptionHash = Hash::make($hashInput);
+    
+        // Check for an existing task with the same hash
+        $existingTask = Task::where('description', $descriptionHash)->first();
+    
+        if ($existingTask) {
+            // Return the existing task if found
+            return response()->json(["id" => $existingTask->uuid, "message" => "Existing task found."]);
+        } else {
+            // Create a new task if not found
+            $task = Task::create([
+                'uuid' => Str::uuid(), // Ensure UUID is generated
+                'payload' => $payload,
+                'task_type' => $taskType,
+                'description' => $descriptionHash, // Store the pre-calculated hash
+                'status' => 'pending',
+                'result' => null
+            ]);
+            
+            return response()->json(["id" => $task->uuid, "message" => "New task created."]);
+        }
     }
+    
 
     public function whisper(Request $request)
     {

@@ -15,7 +15,9 @@ Route::post('whisper', [Controller::class, 'whisper'])->name('whisper');
 Route::get('/clean', [TaskController::class, 'handleStuckTasks']);
 Route::post('/tasks', [TaskController::class, 'store']);
 Route::get('/tasks/pending', [TaskController::class, 'getPendingTasks']);
+
 Route::get('/tasks/response/{uuid}', [TaskController::class, 'getResponse']);
+
 Route::patch('/tasks/{task}', [TaskController::class, 'updateTask']);
 
 

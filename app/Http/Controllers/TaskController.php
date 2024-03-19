@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
 
-    public function getPendingTasks()
+    public function getPendingTasks($type)
     {
-        $tasks = Task::where('status', 'pending')->get();
+        $tasks = Task::where('status', 'pending')->where('task_type', $type)->get();
         return response()->json($tasks);
     }
 
@@ -38,6 +38,5 @@ class TaskController extends Controller
             ->update(['status' => 'pending']);
             return response()->json(['message' => 'Stuck tasks handled successfully.']);
     }
-    
 }
 

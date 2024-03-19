@@ -34,7 +34,14 @@ class TaskController extends Controller
 
     public function getResponse($uuid){
         $task = Task::where('uuid', $uuid)->where('status', 'completed')->firstOrFail();
-        return response()->json($task->makeHidden(['id', 'payload']));
+        return response()->json([
+            "result"=>$task->result,
+            "status"=>$task->status,
+            "uuid"=>$task->uuid,
+            "hash"=>$task->description,
+            "created_at"=>$task->created_at,
+            "updated_at"=>$task->updated_at
+        ]);
     }
     
 

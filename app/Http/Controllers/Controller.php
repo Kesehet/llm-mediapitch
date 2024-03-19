@@ -12,9 +12,12 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedForCredentialsHttpException;
+
 // add request 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use App\Models\Task;
 
 class Controller extends BaseController
 {

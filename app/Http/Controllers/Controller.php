@@ -38,32 +38,35 @@ class Controller extends BaseController
     
     public function llm(Request $request)
     {
-        // Pre-calculate the hash
+        // Prepare your payload and task type
         $payload = ["query" => $request->input('query')];
         $taskType = 'llm';
-        $hashInput = $taskType . serialize($payload);
-        $descriptionHash = Hash::make($hashInput);
     
-        // Check for an existing task with the same hash
+        // Generate a consistent hash of the task_type and serialized payload
+        $hashInput = $taskType . serialize($payload);
+        $descriptionHash = hash('sha256', $hashInput); // Using SHA-256 for hashing
+    
+        // Search for an existing task with the same hash
         $existingTask = Task::where('description', $descriptionHash)->first();
     
         if ($existingTask) {
-            // Return the existing task if found
-            return response()->json(["id" => $existingTask->uuid, "message" => "Existing task found."]);
+            // Task already exists, return its UUID
+            return response()->json(["id" => $existingTask->uuid, "message" => "Existing task found, using cached result."]);
         } else {
-            // Create a new task if not found
+            // No existing task found, create a new one
             $task = Task::create([
                 'uuid' => Str::uuid(), // Ensure UUID is generated
                 'payload' => $payload,
                 'task_type' => $taskType,
-                'description' => $descriptionHash, // Store the pre-calculated hash
+                'description' => $descriptionHash, // Store the consistent hash
                 'status' => 'pending',
                 'result' => null
             ]);
-            
+    
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }
+    
     
 
     public function whisper(Request $request)

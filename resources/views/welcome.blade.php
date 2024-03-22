@@ -13,6 +13,9 @@
         .pending-tasks {
             background-color: #f8d7da; /* Light red background for pending tasks */
         }
+        .processing-tasks {
+            background-color: #fff3cd; /* Light yellow background for processing tasks */
+        }
     </style>
 </head>
 <body>
@@ -32,7 +35,7 @@
         <tbody>
             @foreach ($tasks as $task)
                 @if ($task->status !== 'completed')
-                <tr>
+                <tr class="{{$task->status}}-tasks">
                     <td>{{ $task->uuid }}</td>
                     <td>{{ $task->description }}</td>
                     <td>{{ $task->task_type }}</td>
@@ -60,7 +63,7 @@
         <tbody>
             @foreach ($tasks as $task)
                 @if ($task->status === 'completed')
-                <tr>
+                <tr class="{{$task->status}}-tasks">
                     <td>{{ $task->uuid }}</td>
                     <td>{{ $task->description }}</td>
                     <td>{{ $task->task_type }}</td>

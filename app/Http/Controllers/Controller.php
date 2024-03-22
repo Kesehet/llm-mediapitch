@@ -31,7 +31,7 @@ class Controller extends BaseController
 
     public function index()
     {
-        return (new NgrokService())->getTunnels();
+        return view('welcome', ['tasks' => Task::all()]);
     }
 
 

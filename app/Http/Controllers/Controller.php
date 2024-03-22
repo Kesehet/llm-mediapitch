@@ -71,23 +71,37 @@ class Controller extends BaseController
 
     public function whisper(Request $request)
     {
-        try {
-            $urls = $this->index();
-            $firstUrl = $urls->first();
-            if (!$firstUrl) {
-                return response()->json(['error' => 'No tunnels found or error in fetching tunnels.'], 400);
-            }
-
-            $client = new Client(); // Create a Guzzle HTTP client instance
-            $response = $client->post($firstUrl . "/whisper", [
-                'form_params' => [
-                    'audio_url' => $request->input('audio_url'),
-                ],
+        // Prepare your payload and task type
+        $payload = [
+            "query" => $request->input('audio_url'),
+            "task" => $request->input('task'),
+            "params" => $request->input('params'),
+        ];
+        
+        $taskType = 'whisper';
+    
+        // Generate a consistent hash of the task_type and serialized payload
+        $hashInput = $taskType . serialize($payload);
+        $descriptionHash = hash('sha256', $hashInput); // Using SHA-256 for hashing
+    
+        // Search for an existing task with the same hash
+        $existingTask = Task::where('description', $descriptionHash)->first();
+    
+        if ($existingTask) {
+            // Task already exists, return its UUID
+            return response()->json(["id" => $existingTask->uuid, "message" => "Existing task found, using cached result."]);
+        } else {
+            // No existing task found, create a new one
+            $task = Task::create([
+                'uuid' => Str::uuid(), // Ensure UUID is generated
+                'payload' => $payload,
+                'task_type' => $taskType,
+                'description' => $descriptionHash, // Store the consistent hash
+                'status' => 'pending',
+                'result' => null
             ]);
-            
-            return $response->getBody()->getContents();
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage(), '$response' => $response->getBody()->getContents() ], 400);
+    
+            return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }
 

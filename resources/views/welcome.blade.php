@@ -13,7 +13,10 @@
             background-color: #f8d7da; /* Light red background for pending tasks */
         }
         .processing-tasks {
-            background-color: #fff3cd; /* Light yellow background for processing tasks */
+            background-color: #ddd7f8; /* Light yellow background for processing tasks */
+        }
+        .closed-tasks {
+            background-color: #f8d7d7; /* Light red background for closed tasks */
         }
     </style>
 </head>
@@ -21,7 +24,7 @@
 
 <h2>Pending Tasks</h2>
 <div class="w3-responsive">
-    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white pending-tasks" id="pendingTasksTable">
+    <table class="w3-table w3-bordered w3-border w3-hoverable w3-white" id="pendingTasksTable">
         <thead>
             <tr class="w3-light-grey">
                 <th>UUID</th>
@@ -29,6 +32,8 @@
                 <th>Task Type</th>
                 <th>Status</th>
                 <th>Result</th>
+                <th>Created At</th>
+                <th>Updated At</th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +45,8 @@
                     <td>{{ $task->task_type }}</td>
                     <td>{{ $task->status }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
+                    <td>{{ $task->created_at }}</td>
+                    <td>{{ $task->updated_at }}</td>
                 </tr>
                 @endif
             @endforeach
@@ -49,7 +56,7 @@
 
 <h2>Completed Tasks</h2>
 <div class="w3-responsive">
-    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white completed-tasks" id="completedTasksTable">
+    <table class="w3-table w3-bordered w3-border w3-hoverable w3-white" id="completedTasksTable">
         <thead>
             <tr class="w3-light-grey">
                 <th>UUID</th>
@@ -57,6 +64,8 @@
                 <th>Task Type</th>
                 <th>Status</th>
                 <th>Result</th>
+                <th>Created At</th>
+                <th>Updated At</th>
             </tr>
         </thead>
         <tbody>
@@ -68,6 +77,8 @@
                     <td>{{ $task->task_type }}</td>
                     <td>{{ $task->status }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
+                    <td>{{ $task->created_at }}</td>
+                    <td>{{ $task->updated_at }}</td>
                 </tr>
                 @endif
             @endforeach

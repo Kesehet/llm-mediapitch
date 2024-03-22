@@ -31,7 +31,7 @@
         </thead>
         <tbody>
             @foreach ($tasks as $task)
-                @if ($task->status !== 'complete')
+                @if ($task->status !== 'completed')
                 <tr>
                     <td>{{ $task->uuid }}</td>
                     <td>{{ $task->description }}</td>
@@ -59,7 +59,7 @@
         </thead>
         <tbody>
             @foreach ($tasks as $task)
-                @if ($task->status === 'complete')
+                @if ($task->status === 'completed')
                 <tr>
                     <td>{{ $task->uuid }}</td>
                     <td>{{ $task->description }}</td>

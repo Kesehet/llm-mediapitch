@@ -73,7 +73,7 @@ class Controller extends BaseController
     {
         // Prepare your payload and task type
         $payload = [
-            "query" => $request->input('audio_url'),
+            "audio_url" => $request->input('audio_url'),
             "task" => $request->input('task'),
             "params" => $request->input('params'),
         ];

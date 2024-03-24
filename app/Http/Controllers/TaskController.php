@@ -48,7 +48,7 @@ class TaskController extends Controller
     public function handleStuckTasks(){
         // Handle stuck tasks
         Task::where('status', 'processing')
-            ->where('updated_at', '<', now()->subMinutes(20)) // Adjust time as needed
+            ->where('updated_at', '<', now()->subMinutes(5)) // Adjust time as needed
             ->update(['status' => 'pending']);
     
         // Delete completed tasks that are 1 day old

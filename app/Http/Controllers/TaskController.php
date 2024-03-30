@@ -52,8 +52,7 @@ class TaskController extends Controller
             ->update(['status' => 'pending']);
     
         // Delete completed tasks that are 1 day old
-        Task::where('status', 'completed')
-            ->where('updated_at', '<', now()->subDay(7))
+        Task::where('updated_at', '<', now()->subMinutes(60))
             ->delete();
     
         return response()->json(['message' => 'Stuck and old completed tasks handled successfully.']);

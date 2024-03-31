@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid', 'description', 'task_type', 'payload', 'status', 'result'];
+    protected $fillable = ['uuid', 'description', 'task_type', 'payload', 'status', 'result','pingback_url'];
 
     protected $casts = [
         'payload' => 'array',
@@ -21,15 +22,18 @@ class Task extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($task) {
-            // Check if task already has a UUID (in case it's manually set)
             if (empty($task->uuid)) {
                 $task->uuid = (string) Str::uuid();
 
             }
-
-
+        });
+        
+        // on update make a get request to the pingback_url
+        static::updated(function ($task) {
+            if (!empty($task->pingback_url) && $task->status == 'completed') {
+                Http::get($task->pingback_url);
+            }
         });
     }
 }

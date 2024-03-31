@@ -60,7 +60,8 @@ class Controller extends BaseController
                 'task_type' => $taskType,
                 'description' => $descriptionHash, // Store the consistent hash
                 'status' => 'pending',
-                'result' => null
+                'result' => null,
+                'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
     
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
@@ -98,7 +99,8 @@ class Controller extends BaseController
                 'task_type' => $taskType,
                 'description' => $descriptionHash, // Store the consistent hash
                 'status' => 'pending',
-                'result' => null
+                'result' => null,
+                'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
     
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);

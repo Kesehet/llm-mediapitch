@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +19,8 @@ Route::get('/', [Controller::class, 'index'])->name('home');
 
 
 
-Route::get('auth/google', [LoginController::class] )->name('auth.google');
-Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'] )->name('auth.google.callback');
+
+// Google OAuth Routes
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+

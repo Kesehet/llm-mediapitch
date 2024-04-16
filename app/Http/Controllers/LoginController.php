@@ -15,14 +15,29 @@ class LoginController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->user();
+            
+            // Find or create user
+            $user = User::updateOrCreate([
+                'email' => $googleUser->getEmail()
+            ], [
+                'name' => $googleUser->getName(),
+                'password' => Hash::make(uniqid()),  // You might want to handle password differently
+            ]);
 
-            // Here you would find or create a user in your database
-            // Create a token or log in the user directly
+            // Login the user
+            Auth::login($user, true);
 
-            return redirect()->to('/home'); // or wherever you want to redirect
+            // Generate a token for API access
+            $token = $user->createToken('API Token')->plainTextToken;
+
+            return response()->json([
+                'token' => $token,
+                'message' => 'Logged in with Google successfully!'
+            ]);
+
         } catch (\Exception $e) {
-            return redirect()->route('login')->withErrors('Login failed: ' . $e->getMessage());
+            return redirect()->route('login')->withErrors('Unable to login with Google: ' . $e->getMessage());
         }
     }
 }

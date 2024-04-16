@@ -10,7 +10,7 @@ use App\Http\Controllers\TaskController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('llm', [Controller::class, 'llm'] )->name('llm');
-    Route::post('whisper', [Controller::class, 'whisper'])->name('whisper');    
+    Route::post('whisper', [Controller::class, 'whisper'])->name('whisper');
 });
 
 

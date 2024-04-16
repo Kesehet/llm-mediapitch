@@ -14,3 +14,8 @@ use App\Http\Controllers\Controller;
 */
 
 Route::get('/', [Controller::class, 'index'])->name('home');
+
+
+
+Route::get('auth/google', [LoginController::class] )->name('auth.google');
+Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'] )->name('auth.google.callback');

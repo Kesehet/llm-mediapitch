@@ -6,8 +6,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
 
-Route::post('llm', [Controller::class, 'llm'] )->name('llm');
-Route::post('whisper', [Controller::class, 'whisper'])->name('whisper');
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('llm', [Controller::class, 'llm'] )->name('llm');
+    Route::post('whisper', [Controller::class, 'whisper'])->name('whisper');    
+});
+
 
 
 

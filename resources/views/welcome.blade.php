@@ -6,14 +6,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <style>
-        .w3-table th, .w3-table td {
-            padding: 8px 16px;
-        }
-        body{
-            background-color: #f5f5f5;
-        }
         .completed-tasks {
             background-color: #d4edda; /* Light green background for completed tasks */
+            
         }
         .pending-tasks {
             background-color: #f8d7da; /* Light red background for pending tasks */

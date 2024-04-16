@@ -6,8 +6,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <style>
+        /* body style for dark mode */
+        body {
+            background-color: #333;
+            color: #fff;
+        }
         .completed-tasks {
             background-color: #d4edda; /* Light green background for completed tasks */
+            
         }
         .pending-tasks {
             background-color: #f8d7da; /* Light red background for pending tasks */

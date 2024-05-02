@@ -43,6 +43,7 @@ class Controller extends BaseController
     
     public function llm(Request $request)
     {
+        $this->checkMachine();
         // Prepare your payload and task type
         $payload = ["query" => $request->input('query')];
         $taskType = 'llm';
@@ -68,7 +69,7 @@ class Controller extends BaseController
                 'result' => null,
                 'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
-            $this->checkMachine();
+            
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }
@@ -77,6 +78,7 @@ class Controller extends BaseController
 
     public function whisper(Request $request)
     {
+        $this->checkMachine();
         // Prepare your payload and task type
         $payload = [
             "audio_url" => $request->input('audio_url'),
@@ -107,7 +109,7 @@ class Controller extends BaseController
                 'result' => null,
                 'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
-            $this->checkMachine();
+            
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }

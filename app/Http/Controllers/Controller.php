@@ -137,7 +137,7 @@ class Controller extends BaseController
         if(count($machines) == 0){
             $instanceService = new InstanceService();
             $machine = $instanceService->createInstance();
-            NotificationService::send("I have created a machine for you with the name {$machine->name} and id {$machine->machine_id} at the rate of ${$machine->price}/hr. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
+            NotificationService::send("I have created a machine for you with the name ".$machine->name." and id ".$machine->machine_id." at the rate of $ ".$machine->price."/hr. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
         }        
     }
 }

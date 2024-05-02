@@ -66,7 +66,7 @@ class TaskController extends Controller
             foreach ($activeMachines as $machine) {
                 $instanceService->destroyInstance($machine->machine_id);
             }
-            NotificationService::sendNotification('I have destroyed all my instances because they were sitting idle. There was no task to perform. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.');
+            NotificationService::send('I have destroyed all my instances because they were sitting idle. There was no task to perform. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.');
             return response()->json(['message' => 'No pending tasks found.']);
         }
     

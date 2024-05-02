@@ -18,6 +18,11 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
+use App\Models\Machine;
+use App\Services\InstanceService;
+use App\Services\NotificationService;
+
 use App\Models\Task;
 
 class Controller extends BaseController
@@ -102,7 +107,6 @@ class Controller extends BaseController
                 'result' => null,
                 'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
-    
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }
@@ -125,5 +129,14 @@ class Controller extends BaseController
         return json_decode($response->getBody()->getContents());
 
 
+    }
+
+    function checkMachine(){
+        $machines = Machine::where('status', true)->get();
+        if(count($machines) == 0){
+            $instanceService = new InstanceService();
+            $machine = $instanceService->createInstance();
+            NotificationService::send("I have created a machine for you with the name {$machine->name} and id {$machine->machine_id} at the rate of ${$machine->price}/hr. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
+        }        
     }
 }

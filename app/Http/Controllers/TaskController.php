@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Models\Machine;
+use App\Services\InstanceService;
+use App\Services\NotificationService;
 
 class TaskController extends Controller
 {
@@ -54,6 +57,18 @@ class TaskController extends Controller
         // Delete completed tasks that are 1 day old
         Task::where('created_at', '<', now()->subMinutes(60*24))
             ->delete();
+
+        // If there are no pending tasks
+        if(!Task::where('status', 'pending')->exists()){
+            $instanceService = new InstanceService();
+            // get all machines with status true
+            $activeMachines = Machine::where('status', true)->get();
+            foreach ($activeMachines as $machine) {
+                $instanceService->destroyInstance($machine->machine_id);
+            }
+            NotificationService::sendNotification('I have destroyed all my instances because they were sitting idle. There was no task to perform. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.');
+            return response()->json(['message' => 'No pending tasks found.']);
+        }
     
         return response()->json(['message' => 'Stuck and old completed tasks handled successfully.']);
     }

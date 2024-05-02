@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Services\InstanceService;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +24,8 @@ Route::get('/', [Controller::class, 'index'])->name('home');
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
+Route::get("test", function () {
+    $instanceService = new InstanceService();
+    $instanceNow = $instanceService->createInstance();
+    return response()->json($instanceService->destroyInstance($instanceNow['id']));
+});

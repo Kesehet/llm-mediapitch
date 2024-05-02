@@ -68,7 +68,7 @@ class Controller extends BaseController
                 'result' => null,
                 'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
-    
+            $this->checkMachine();
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }
@@ -107,6 +107,7 @@ class Controller extends BaseController
                 'result' => null,
                 'pingback_url' => $request->input('pingback_url') ?? null,
             ]);
+            $this->checkMachine();
             return response()->json(["id" => $task->uuid, "message" => "New task created."]);
         }
     }

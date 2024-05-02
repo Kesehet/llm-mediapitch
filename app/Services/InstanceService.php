@@ -4,6 +4,7 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use App\Models\Machine;
+use App\Services\NotificationService;
 // Carbon
 use Carbon\Carbon;
 
@@ -50,6 +51,7 @@ class InstanceService
         'last_active' => Carbon::now(), 
         'machine_id' => $machineID
     ]);
+    NotificationService::send("I have created a machine for you with the name ".$machine->name." and id ".$machine->machine_id." at the rate of $ ".$machine->price."/hr. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
     return $machine;
 }
 
@@ -67,8 +69,9 @@ class InstanceService
     public function destroyInstance($instanceId)
     {
         $endpoint = "v0/instances/{$instanceId}/";
-        Machine::where('machine_id', $instanceId)->delete();
+        $machine = Machine::where('machine_id', $instanceId)->delete();
         
+        NotificationService::send("I have destroyed the machine with id ".$instanceId.". Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
         return $this->sendRequest('DELETE', $endpoint);
     }
     

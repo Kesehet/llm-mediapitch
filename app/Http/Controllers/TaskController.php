@@ -63,10 +63,14 @@ class TaskController extends Controller
             $instanceService = new InstanceService();
             // get all machines with status true
             $activeMachines = Machine::where('status', true)->get();
+            $count = count($activeMachines);
             foreach ($activeMachines as $machine) {
                 $instanceService->destroyInstance($machine->machine_id);
             }
-            NotificationService::send('I have destroyed all my instances because they were sitting idle. There was no task to perform. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.');
+            if ($count > 0) {
+                NotificationService::send('I have destroyed all my instances because they were sitting idle. There was no task to perform. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.');
+            }
+            
             return response()->json(['message' => 'No pending tasks found.']);
         }
     

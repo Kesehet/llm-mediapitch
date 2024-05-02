@@ -51,8 +51,8 @@
                     <td>{{ $machine->machine_id }}</td>
                     <td>{{ $machine->status }}</td>
                     <td>{{ $machine->price }}</td>
-                    <td>{{ $machine->last_active }}</td>
-                    <td>{{ $machine->created_at }}</td>
+                    <td>{{ $machine->last_active->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
+                    <td>{{ $machine->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -82,8 +82,8 @@
                     <td>{{ $task->task_type }}</td>
                     <td>{{ $task->status }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
-                    <td>{{ $task->created_at }}</td>
-                    <td>{{ $task->updated_at }}</td>
+                    <td>{{ $task->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
+                    <td>{{ $task->updated_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                 </tr>
                 @endif
             @endforeach
@@ -114,8 +114,8 @@
                     <td>{{ $task->task_type }}</td>
                     <td>{{ $task->status }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
-                    <td>{{ $task->created_at }}</td>
-                    <td>{{ $task->updated_at }}</td>
+                    <td>{{ $task->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
+                    <td>{{ $task->updated_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                 </tr>
                 @endif
             @endforeach

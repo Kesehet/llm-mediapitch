@@ -36,7 +36,7 @@ class Controller extends BaseController
 
     public function index()
     {
-        return view('welcome', ['tasks' => Task::all()]);
+        return view('welcome', ['tasks' => Task::all(), 'machines' => Machine::all()]);
     }
 
 

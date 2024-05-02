@@ -92,6 +92,32 @@
     </table>
 </div>
 
+
+<h2> Machines Table</h2>
+<div class="w3-responsive">
+    <table class="w3-table w3-bordered w3-border w3-hoverable w3-white">
+        <thead>
+            <tr class="w3-light-grey">
+                <th>Name</th>
+                <th>Machine ID</th>
+                <th>Status</th>
+                <th>Last Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($machines as $machine)
+
+                <tr>    
+                    <td>{{ $machine->name }}</td>
+                    <td>{{ $machine->machine_id }}</td>
+                    <td>{{ $machine->status }}</td>
+                    <td>{{ $machine->last_active }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
 <script>
 $(document).ready( function () {
     $('#pendingTasksTable').DataTable();

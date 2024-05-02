@@ -4,9 +4,6 @@ namespace App\Services;
 class NotificationService
 {
     public static function send($message) {
-        if(config('app.debug') == true){
-            return;
-        }
         $webhookUrl = "https://discord.com/api/webhooks/1235529664265457664/Z9n1DFnwkw7VClc8oY9dY4peiA9_0QNLXlMWkrIDW7Goaf1VIRUirwWy0NqC1yX4MVZh";
         // Create the message payload
         $payload = json_encode([

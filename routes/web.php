@@ -27,5 +27,5 @@ Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallbac
 Route::get("test", function () {
     $instanceService = new InstanceService();
     $instanceNow = $instanceService->createInstance();
-    return response()->json($instanceService->destroyInstance($instanceNow['id']));
+    return response()->json($instanceNow);
 });

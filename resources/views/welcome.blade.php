@@ -97,9 +97,9 @@
         <thead>
             <tr class="w3-light-grey">
                 <th>UUID</th>
-                <th>Description</th>
                 <th>Task Type</th>
                 <th>Status</th>
+                <th>Payload</th>
                 <th>Result</th>
                 <th>Created At</th>
                 <th>Updated At</th>
@@ -110,9 +110,9 @@
                 @if ($task->status === 'completed')
                 <tr class="{{$task->status}}-tasks">
                     <td>{{ $task->uuid }}</td>
-                    <td>{{ $task->description }}</td>
                     <td>{{ $task->task_type }}</td>
                     <td>{{ $task->status }}</td>
+                    <td>{{ is_array($task->payload) ? json_encode($task->payload) : $task->payload }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
                     <td>{{ $task->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                     <td>{{ $task->updated_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>

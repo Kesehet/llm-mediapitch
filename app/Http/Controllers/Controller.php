@@ -84,6 +84,7 @@ class Controller extends BaseController
             "audio_url" => $request->input('audio_url'),
             "task" => $request->input('task'),
             "params" => $request->input('params'),
+            "context" => $request->input('context'),
         ];
         
         $taskType = 'whisper';

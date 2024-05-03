@@ -69,7 +69,7 @@ class InstanceService
     public function destroyInstance($instanceId)
     {
         $endpoint = "v0/instances/{$instanceId}/";
-        $machine = Machine::where('machine_id', $instanceId)->delete();
+        $machine = Machine::where('machine_id', $instanceId)->update(['status' => false, 'last_active' => Carbon::now()]);
         
         NotificationService::send("I have destroyed the machine with id ".$instanceId.". Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
         return $this->sendRequest('DELETE', $endpoint);

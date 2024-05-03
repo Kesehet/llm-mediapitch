@@ -37,7 +37,7 @@ class InstanceService
         'image' => 'nvidia/cuda:12.0.1-devel-ubuntu22.04',
         'env' => ['TZ' => 'UTC'],
         'price' => $machineNow['dph_total_adj'],
-        'onstart'=> "apt install nano -y\napt install python3 -y\napt install python3-pip -y\napt install htop -y\napt install curl -y\napt install ffmpeg -y\ncurl https://ollama.ai/install.sh | sh\npip install ollama transformers pydub pyannote.audio pytube\npip install --upgrade git+https://github.com/huggingface/transformers.git accelerate datasets[audio]\npip install flash-attn --no-build-isolation\nollama serve &\nollama run openchat &\ncurl -o /root/run.py https://raw.githubusercontent.com/Kesehet/vastapibkup/main/run.py\npython3 /root/run.py >> /root/run.log 2>&1",
+        'onstart'=> "apt install nano -y\napt install python3 -y\napt install python3-pip -y\napt install htop -y\napt install curl -y\napt install ffmpeg -y\ncurl https://ollama.ai/install.sh | sh\npip install ollama transformers pydub pyannote.audio pytube\npip install --upgrade git+https://github.com/huggingface/transformers.git accelerate datasets[audio]\npip install flash-attn --no-build-isolation\nollama serve &\nollama run llama3 &\ncurl -o /root/run.py https://raw.githubusercontent.com/Kesehet/vastapibkup/main/run.py\npython3 /root/run.py >> /root/run.log 2>&1",
         'disk' => 30,
         'label' => $machineName,
         'runtype' => 'ssh',

@@ -82,7 +82,7 @@
                     <td>{{ $task->description }}</td>
                     <td>{{ $task->task_type }}</td>
                     <td>{{ $task->status }}</td>
-                    <td>{{ $task->payload }}</td>
+                    <td>{{ is_array($task->payload) ? json_encode($task->payload) : $task->payload }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
                     <td>{{ $task->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                     <td>{{ $task->updated_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>

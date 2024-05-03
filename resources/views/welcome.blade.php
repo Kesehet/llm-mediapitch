@@ -51,7 +51,7 @@
                     <td>{{ $machine->machine_id }}</td>
                     <td>{{ $machine->status }}</td>
                     <td>{{ $machine->price }}</td>
-                    <td>{{ $machine->last_active->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
+                    <td>{{ $machine->updated_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                     <td>{{ $machine->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                 </tr>
             @endforeach

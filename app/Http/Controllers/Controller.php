@@ -141,5 +141,7 @@ class Controller extends BaseController
             $instanceService = new InstanceService();
             $machine = $instanceService->createInstance();
         }
+        // update update_at of the machine 
+        Machine::where('status', true)->update(['updated_at' => now()]);
     }
 }

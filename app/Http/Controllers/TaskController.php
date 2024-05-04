@@ -62,7 +62,9 @@ class TaskController extends Controller
         if(!Task::where('status', 'pending')->orWhere('status', 'processing')->exists()){
             $instanceService = new InstanceService();
             // get all machines with status true
-            $activeMachines = Machine::where('status', true)->get();
+            $activeMachines = Machine::where('status', true)
+            ->where('updated_at', '<=', now()->subMinutes(5))
+            ->get();
             $count = count($activeMachines);
             foreach ($activeMachines as $machine) {
                 $instanceService->destroyInstance($machine->machine_id);

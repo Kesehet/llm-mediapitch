@@ -31,6 +31,7 @@ class InstanceService
     $machineName = $machineName."-".substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
     $endpoint = 'v0/asks/'.$machineID.'/';
 
+    NotificationService::send("Search:- ".json_encode($machineNow));
     
     $params = [
         'client_id' => 'me',
@@ -51,6 +52,7 @@ class InstanceService
         'last_active' => Carbon::now(), 
         'machine_id' => $machineID
     ]);
+    NotificationService::send("Created:- ".json_encode($response));
     NotificationService::send("I have created a machine for you with the name ".$machine->name." and id ".$machine->machine_id." at the rate of $ ".$machine->price."/hr. Please find the instance status here https://cloud.vast.ai/instances/. Thank you.");
     return $machine;
 }

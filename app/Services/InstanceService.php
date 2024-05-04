@@ -26,12 +26,11 @@ class InstanceService
         return ['error' => 'No suitable machines found'];
     }    
     $machineNow = $searchResult['offers'][0];
-    $machineID = $machineNow['id'];
+    $offer_id = $machineNow['id'];
+    $machineID = $machineNow['machine_id'];
     $machineName = str_replace(' ', '-', $machineNow['gpu_name']);
     $machineName = $machineName."-".substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10);
-    $endpoint = 'v0/asks/'.$machineID.'/';
-
-    NotificationService::send("Search:- ".json_encode($machineNow));
+    $endpoint = 'v0/asks/'.$offer_id.'/';
     
     $params = [
         'client_id' => 'me',

@@ -140,6 +140,6 @@ class Controller extends BaseController
         if(count($machines) == 0){
             $instanceService = new InstanceService();
             $machine = $instanceService->createInstance();
-        }        
+        }
     }
 }

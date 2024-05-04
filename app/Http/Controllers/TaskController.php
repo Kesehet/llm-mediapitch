@@ -58,8 +58,8 @@ class TaskController extends Controller
         Task::where('created_at', '<', now()->subMinutes(60*24))
             ->delete();
 
-        // If there are no pending tasks
-        if(!Task::where('status', 'pending')->exists()){
+        // If there are no pending or processing tasks
+        if(!Task::where('status', 'pending')->orWhere('status', 'processing')->exists()){
             $instanceService = new InstanceService();
             // get all machines with status true
             $activeMachines = Machine::where('status', true)->get();

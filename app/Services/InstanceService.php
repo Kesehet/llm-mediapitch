@@ -36,7 +36,7 @@ class InstanceService
         'image' => 'nvidia/cuda:12.0.1-devel-ubuntu22.04',
         'env' => ['TZ' => 'UTC'],
         'price' => $machineNow['dph_total_adj'],
-        'onstart'=> "apt install -y curl nano --no-install-recommends\ncurl -o init.sh https://raw.githubusercontent.com/Kesehet/vastapibkup/main/onstart.sh\nchmod +x init.sh\n./init.sh\n",
+        'onstart'=> "apt install -y curl nano --no-install-recommends\ncurl -o init.sh https://raw.githubusercontent.com/Kesehet/vastapibkup/main/onstart.sh\nsed -i 's/\\r//g' init.sh\nchmod +x init.sh\n./init.sh\n",
         'disk' => 30,
         'label' => $machineName,
         'runtype' => 'ssh',

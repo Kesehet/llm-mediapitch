@@ -94,6 +94,7 @@ class InstanceService
             'extra_ids' => [],
             'type' => 'ask',
             'direct_port_count' => ['gte' => 2],
+            'gpu_name' => ['in'=>['RTX A4000', 'RTX 4060 Ti']],
         ];
     
         return $this->sendRequest('GET', 'v0/bundles', ['query' => ['q' => json_encode($criteria)]]);

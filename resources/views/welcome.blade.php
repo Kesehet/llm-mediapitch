@@ -9,6 +9,7 @@
     <style>
         /* body style for dark mode */
         body {
+            background-color: #333;
             color: #fff;
         }
         .completed-tasks {

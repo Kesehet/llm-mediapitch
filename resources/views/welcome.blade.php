@@ -9,7 +9,6 @@
     <style>
         /* body style for dark mode */
         body {
-            background-color: #333;
             color: #fff;
         }
         .completed-tasks {
@@ -51,7 +50,6 @@
                     <td>{{ $machine->status }}</td>    
                     <td>{{ $machine->name }}</td>
                     <td>{{ $machine->machine_id }}</td>
-                    
                     <td>{{ $machine->price }}</td>
                     <td>{{ $machine->updated_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
                     <td>{{ $machine->created_at->timezone('Asia/Kolkata')->toDateTimeString() }}</td>
@@ -74,8 +72,6 @@
                 <th>Status</th>
                 <th>Payload</th>
                 <th>Result</th>
-                
-                
             </tr>
         </thead>
         <tbody>
@@ -90,8 +86,6 @@
                     <td>{{ $task->status }}</td>
                     <td>{{ is_array($task->payload) ? json_encode($task->payload) : $task->payload }}</td>
                     <td>{{ is_array($task->result) ? json_encode($task->result) : $task->result }}</td>
-                    
-                    
                 </tr>
                 @endif
             @endforeach

@@ -136,9 +136,21 @@
 
 <script>
 $(document).ready( function () {
-    $('#pendingTasksTable').DataTable();
-    $('#completedTasksTable').DataTable();
-    $('#machines').DataTable();
+    $('#pendingTasksTable').DataTable(
+        {
+            "order": [[ 0, "desc" ]]
+        }
+    );
+    $('#completedTasksTable').DataTable(
+        {
+            "order": [[ 0, "desc" ]]
+        }
+    );
+    $('#machines').DataTable(
+        {
+            "order": [[ 0, "desc" ]]
+        }
+    );
 });
 </script>
 

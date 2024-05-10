@@ -4,7 +4,7 @@ use App\Services\NgrokService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
-
+use App\Models\Task;
 
 
 
@@ -24,6 +24,10 @@ Route::get('/tasks/pending/{type}', [TaskController::class, 'getPendingTasks']);
 Route::get('/tasks/response/{uuid}', [TaskController::class, 'getResponse']);
 
 Route::patch('/tasks/{task}', [TaskController::class, 'updateTask']);
+
+Route::get("/all-tasks", function () {
+    return Task::all();
+});
 
 
 

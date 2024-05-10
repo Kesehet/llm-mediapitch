@@ -26,7 +26,7 @@ Route::get('/tasks/response/{uuid}', [TaskController::class, 'getResponse']);
 Route::patch('/tasks/{task}', [TaskController::class, 'updateTask']);
 
 Route::get("/all-tasks", function () {
-    return Task::all();
+    return Task::where('status', 'pending')->orwhere('status', 'processing')->get();
 });
 
 
